@@ -15,5 +15,13 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
+    'react/require-default-props': 'off',
+    'react/forbid-prop-types': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'arrow-parens': 'off',
+    'import/prefer-default-export': 'off',
+    'import/no-unresolved': 'off',
+    'object-curly-newline': 'off',
+    'arrow-body-style': 'off',
   },
 };

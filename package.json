@@ -6,14 +6,16 @@
   "author": "Andres Felipe Valencia Benitez <afvalenciab@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "next",
+    "dev": "NODE_OPTIONS='--inspect' next",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --fix",
     "prepare": "husky install"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
     "next": "^10.2.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
