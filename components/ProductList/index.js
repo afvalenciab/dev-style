@@ -9,6 +9,7 @@ const ListContainer = styled('section')({
   columnGap: '1rem',
   rowGap: '2rem',
   width: '100%',
+  paddingBottom: '0.5rem',
   '@media (max-width: 900px)': {
     gridTemplateColumns: '1fr 1fr',
   },

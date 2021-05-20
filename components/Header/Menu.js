@@ -1,8 +1,17 @@
-import React from 'react';
-import { Grid, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Grid, Button, IconButton } from '@material-ui/core';
 import { makeStyles, styled } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+
+import SidebarMenu from 'components/Header/SidebarMenu';
 
 const useStyles = makeStyles({
+  root: {
+    justifyContent: 'center',
+    '@media (max-width: 900px)': {
+      justifyContent: 'flex-end',
+    },
+  },
   buttonNav: {
     textTransform: 'none',
     fontSize: '1rem',
@@ -12,6 +21,12 @@ const useStyles = makeStyles({
       backgroundColor: 'transparent',
     },
   },
+  sidebarButton: {
+    display: 'none',
+    '@media (max-width: 900px)': {
+      display: 'flex',
+    },
+  },
 });
 
 const MenuContainer = styled('ul')({
@@ -19,6 +34,9 @@ const MenuContainer = styled('ul')({
   display: 'flex',
   margin: 0,
   padding: 0,
+  '@media (max-width: 900px)': {
+    display: 'none',
+  },
 });
 
 const ItemMenu = styled('li')(({ theme }) => ({
@@ -31,29 +49,43 @@ const ItemMenu = styled('li')(({ theme }) => ({
 
 const Menu = () => {
   const classes = useStyles();
+  const [openSidebarMenu, setOpenSidebarMenu] = useState(false);
 
   return (
-    <Grid container justify="center" spacing={2}>
-      <MenuContainer>
-        <ItemMenu>
-          <Button className={classes.buttonNav} disableRipple>
-            Todos
-          </Button>
-        </ItemMenu>
+    <>
+      <Grid container className={classes.root}>
+        <MenuContainer>
+          <ItemMenu>
+            <Button className={classes.buttonNav} disableRipple>
+              Todos
+            </Button>
+          </ItemMenu>
 
-        <ItemMenu>
-          <Button className={classes.buttonNav} disableRipple>
-            Hombre
-          </Button>
-        </ItemMenu>
+          <ItemMenu>
+            <Button className={classes.buttonNav} disableRipple>
+              Hombre
+            </Button>
+          </ItemMenu>
 
-        <ItemMenu>
-          <Button className={classes.buttonNav} disableRipple>
-            Mujer
-          </Button>
-        </ItemMenu>
-      </MenuContainer>
-    </Grid>
+          <ItemMenu>
+            <Button className={classes.buttonNav} disableRipple>
+              Mujer
+            </Button>
+          </ItemMenu>
+        </MenuContainer>
+
+        <IconButton
+          className={classes.sidebarButton}
+          color="primary"
+          edge="end"
+          onClick={() => setOpenSidebarMenu(true)}
+        >
+          <MenuIcon />
+        </IconButton>
+      </Grid>
+
+      <SidebarMenu open={openSidebarMenu} onClose={() => setOpenSidebarMenu(false)} />
+    </>
   );
 };
 

@@ -4,8 +4,11 @@ const theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       '@global': {
+        html: {
+          backgroundColor: '#111111',
+        },
         body: {
-          backgroundColor: 'secondary',
+          backgroundColor: '#FFFFFF',
         },
       },
     },
@@ -18,6 +21,12 @@ const theme = createMuiTheme({
           paddingLeft: '55px',
           paddingRight: '55px',
         },
+      },
+    },
+    MuiPaper: {
+      elevation8: {
+        boxShadow:
+          '0px 5px 5px -3px rgba(0,0,0,0.1), 0px 2px 6px 1px rgba(0,0,0,0.1), 0px 3px 14px 2px rgba(0,0,0,0.1)',
       },
     },
   },
@@ -38,7 +47,7 @@ const theme = createMuiTheme({
       main: '#FFFFFF',
     },
     grey1: '#757575',
-    grey2: '#F5F5F5F5',
+    grey2: '#6F6F6F',
     text: {
       primary: '#111111',
       secondary: '#757575',

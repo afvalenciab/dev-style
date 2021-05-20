@@ -7,7 +7,13 @@ const ProductCard = () => {
     <Card raised>
       <CardActionArea>
         <CardMedia component="picture">
-          <Image src="/images/ShirtReact.jpg" width="100%" height="auto" layout="responsive" />
+          <Image
+            src="/images/ShirtReact.jpg"
+            width="100%"
+            height="auto"
+            layout="responsive"
+            alt=""
+          />
         </CardMedia>
         <CardContent>
           <Typography component="h3">ReactJS</Typography>
