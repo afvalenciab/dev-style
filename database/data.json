@@ -1,0 +1,13 @@
+{
+  "data": [
+    {
+      "id": "e894bbfb-44eb-4b5c-be1a-79178e5a40cc",
+      "name": "Camiseta React ",
+      "price": "280",
+      "image": "/images/react.jps",
+      "attributes": {
+        "description": "Great React shirt"
+      }
+    }
+  ]
+}
