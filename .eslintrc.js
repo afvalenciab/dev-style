@@ -23,5 +23,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'object-curly-newline': 'off',
     'arrow-body-style': 'off',
+    'react/no-array-index-key': 'off',
+    'react/jsx-closing-bracket-location': 'off',
   },
 };
