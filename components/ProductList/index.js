@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { styled } from '@material-ui/core/styles';
 
-import Product from 'components/ProductCard';
+import ProductCard from 'components/ProductCard';
 
 const ListContainer = styled('section')({
   display: 'grid',
@@ -15,16 +16,18 @@ const ListContainer = styled('section')({
   },
 });
 
-const ProductList = () => {
+const ProductList = ({ list }) => {
   return (
     <ListContainer>
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
+      {list.map(item => (
+        <ProductCard key={item.id} product={item} />
+      ))}
     </ListContainer>
   );
+};
+
+ProductList.propTypes = {
+  list: PropTypes.array,
 };
 
 export default ProductList;
