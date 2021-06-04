@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { Grid, Container, Typography, Button } from '@material-ui/core';
 import { styled, makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import fetch from 'isomorphic-unfetch';
 
+import { getAll, getById } from 'database/db';
 import { sizeList } from 'utils/product';
 
 const useStyles = makeStyles(theme => ({
@@ -55,18 +55,10 @@ const ProductImages = styled('div')({
   width: '100%',
 });
 
-const ProductPage = () => {
-  const { query } = useRouter();
+const ProductPage = ({ product }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const [product, setProduct] = useState(null);
   const [sizeSelected, setSizeSelected] = useState(null);
-
-  useEffect(() => {
-    fetch(`/api/shirt/${query.id}`)
-      .then(response => response.json())
-      .then(({ item }) => setProduct(item));
-  }, []);
 
   return (
     <Container maxWidth="xl">
@@ -140,6 +132,23 @@ const ProductPage = () => {
       </Grid>
     </Container>
   );
+};
+
+export const getStaticProps = async ({ params: { id } }) => {
+  const product = getById(id);
+
+  return { props: { product } };
+};
+
+export const getStaticPaths = async () => {
+  const { items } = getAll();
+
+  const paths = items.map(item => ({ params: { id: item.id } }));
+  return { paths, fallback: false };
+};
+
+ProductPage.propTypes = {
+  product: PropTypes.object,
 };
 
 export default ProductPage;

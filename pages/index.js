@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Container, Grid } from '@material-ui/core';
 
+import { getAll } from 'database/db';
 import ProductList from 'components/ProductList';
 
-const HomePage = () => {
-  const [productList, setProductList] = useState([]);
-
-  useEffect(() => {
-    fetch('/api/shirt')
-      .then(response => response.json())
-      .then(data => setProductList(data?.items));
-  }, []);
-
+const HomePage = ({ productList }) => {
   return (
     <Container maxWidth="xl">
       <Grid container>
@@ -19,6 +13,16 @@ const HomePage = () => {
       </Grid>
     </Container>
   );
+};
+
+export function getStaticProps() {
+  const { items } = getAll();
+
+  return { props: { productList: items } };
+}
+
+HomePage.propTypes = {
+  productList: PropTypes.array,
 };
 
 export default HomePage;
