@@ -25,5 +25,8 @@ module.exports = {
     'arrow-body-style': 'off',
     'react/no-array-index-key': 'off',
     'react/jsx-closing-bracket-location': 'off',
+    'consistent-return': 'off',
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['draft'] }],
+    'implicit-arrow-linebreak': 'off',
   },
 };

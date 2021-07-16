@@ -25,9 +25,11 @@ MyDocument.getInitialProps = async ctx => {
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
-  ctx.renderPage = () => originalRenderPage({
-    enhanceApp: App => props => sheets.collect(<App {...props} />),
-  });
+  // eslint-disable-next-line no-param-reassign
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: App => props => sheets.collect(<App {...props} />),
+    });
 
   const initialProps = await Document.getInitialProps(ctx);
 
