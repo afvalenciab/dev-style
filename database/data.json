@@ -1,0 +1,84 @@
+{
+  "items": [
+    {
+      "id": "e894bbfb-44eb-4b5c-be1a-79178e5a40ee",
+      "category": "Camiseta hombre",
+      "gender": "M",
+      "name": "ReactJS",
+      "price": "300",
+      "sizes": ["S", "M", "L", "XL"],
+      "image": "/images/ShirtReact.jpg",
+      "imageList": [
+        "/images/ShirtReact.jpg",
+        "/images/ShirtReact.jpg",
+        "/images/ShirtReact.jpg",
+        "/images/ShirtReact.jpg"
+      ],
+      "description": "Camiseta manga corta, cuello redondo, producto 100% algodon, peso ligero, textura suave, colores solidos."
+    },
+    {
+      "id": "e894bbfb-44eb-4b5c-be1a-79178e5a40aa",
+      "category": "Camiseta hombre",
+      "gender": "M",
+      "name": "Angular",
+      "price": "300",
+      "sizes": ["S", "M", "L", "XL"],
+      "image": "/images/ShirtAngular.jpg",
+      "imageList": [
+        "/images/ShirtAngular.jpg",
+        "/images/ShirtAngular.jpg",
+        "/images/ShirtAngular.jpg",
+        "/images/ShirtAngular.jpg"
+      ],
+      "description": "Camiseta manga corta, cuello redondo, producto 100% algodon, peso ligero, textura suave, colores solidos."
+    },
+    {
+      "id": "e894bbfb-44eb-4b5c-be1a-79178e5a40bb",
+      "category": "Camiseta hombre",
+      "gender": "M",
+      "name": "Javascript",
+      "price": "300",
+      "sizes": ["S", "M", "L", "XL"],
+      "image": "/images/ShirtJS.jpg",
+      "imageList": [
+        "/images/ShirtJS.jpg",
+        "/images/ShirtJS.jpg",
+        "/images/ShirtJS.jpg",
+        "/images/ShirtJS.jpg"
+      ],
+      "description": "Camiseta manga corta, cuello redondo, producto 100% algodon, peso ligero, textura suave, colores solidos."
+    },
+    {
+      "id": "e894bbfb-44eb-4b5c-be1a-79178e5a40cc",
+      "category": "Camiseta mujer",
+      "gender": "W",
+      "name": "HTML",
+      "price": "300",
+      "sizes": ["S", "M", "L"],
+      "image": "/images/ShirtHtmlWoman.jpg",
+      "imageList": [
+        "/images/ShirtHtmlWoman.jpg",
+        "/images/ShirtHtmlWoman.jpg",
+        "/images/ShirtHtmlWoman.jpg",
+        "/images/ShirtHtmlWoman.jpg"
+      ],
+      "description": "Camiseta manga corta, cuello redondo, producto 100% algodon, peso ligero, textura suave, colores solidos."
+    },
+    {
+      "id": "e894bbfb-44eb-4b5c-be1a-79178e5a40dd",
+      "category": "Camiseta mujer",
+      "gender": "W",
+      "name": "Javascript",
+      "price": "300",
+      "sizes": ["S", "M", "L"],
+      "image": "/images/ShirtJSWoman.jpg",
+      "imageList": [
+        "/images/ShirtJSWoman.jpg",
+        "/images/ShirtJSWoman.jpg",
+        "/images/ShirtJSWoman.jpg",
+        "/images/ShirtJSWoman.jpg"
+      ],
+      "description": "Camiseta manga corta, cuello redondo, producto 100% algodon, peso ligero, textura suave, colores solidos."
+    }
+  ]
+}
