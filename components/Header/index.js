@@ -3,10 +3,10 @@ import { Container, Grid, AppBar } from '@material-ui/core';
 
 import Logo from './Logo';
 import Menu from './Menu';
-import { useStyles } from './styles';
+import { useStylesHeader } from './styles';
 
 const Header = () => {
-  const classes = useStyles();
+  const classes = useStylesHeader();
 
   return (
     <AppBar className={classes.appBar} color="secondary" position="static">

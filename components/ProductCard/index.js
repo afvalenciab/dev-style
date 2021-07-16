@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Card, CardActionArea, CardMedia, CardContent, Typography } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
+
+import { useStyles } from './styles';
 
 const ProductCard = ({ product }) => {
+  const theme = useTheme();
+  const classes = useStyles(theme);
   const router = useRouter();
 
   return (
     <Card raised>
       <CardActionArea onClick={() => router.push(`/product/${product.id}`)}>
-        <CardMedia component="picture">
+        <CardMedia component="picture" className={classes.placeholderImg}>
           <Image
             src={product.image}
             width="100%"

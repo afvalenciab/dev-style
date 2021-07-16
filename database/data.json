@@ -6,7 +6,7 @@
       "gender": "M",
       "name": "ReactJS",
       "price": "300",
-      "sizes": ["S","M","L","XL"],
+      "sizes": ["S", "M", "L", "XL"],
       "image": "/images/ShirtReact.jpg",
       "imageList": [
         "/images/ShirtReact.jpg",
@@ -22,7 +22,7 @@
       "gender": "M",
       "name": "Angular",
       "price": "300",
-      "sizes": ["S","M","L","XL"],
+      "sizes": ["S", "M", "L", "XL"],
       "image": "/images/ShirtAngular.jpg",
       "imageList": [
         "/images/ShirtAngular.jpg",
@@ -38,7 +38,7 @@
       "gender": "M",
       "name": "Javascript",
       "price": "300",
-      "sizes": ["S","M","L","XL"],
+      "sizes": ["S", "M", "L", "XL"],
       "image": "/images/ShirtJS.jpg",
       "imageList": [
         "/images/ShirtJS.jpg",
@@ -51,10 +51,10 @@
     {
       "id": "e894bbfb-44eb-4b5c-be1a-79178e5a40cc",
       "category": "Camiseta mujer",
-      "gender": "F",
+      "gender": "W",
       "name": "HTML",
       "price": "300",
-      "sizes": ["S","M","L"],
+      "sizes": ["S", "M", "L"],
       "image": "/images/ShirtHtmlWoman.jpg",
       "imageList": [
         "/images/ShirtHtmlWoman.jpg",
@@ -67,10 +67,10 @@
     {
       "id": "e894bbfb-44eb-4b5c-be1a-79178e5a40dd",
       "category": "Camiseta mujer",
-      "gender": "F",
+      "gender": "W",
       "name": "Javascript",
       "price": "300",
-      "sizes": ["S","M","L"],
+      "sizes": ["S", "M", "L"],
       "image": "/images/ShirtJSWoman.jpg",
       "imageList": [
         "/images/ShirtJSWoman.jpg",
