@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
-import { Grid, Container, Typography, Button } from '@material-ui/core';
+
+import { Grid, Container, Typography, Button, CircularProgress } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
 import { sizeList } from 'utils/product';
+import useCheckoutStripe from 'hooks/useCheckoutStripe';
 import { useStyles, ProductImages } from './styles';
 
 const ProductDetail = ({ product }) => {
+  const [selectedSize, setSelectedSize] = useState(null);
+
   const theme = useTheme();
   const classes = useStyles(theme);
-  const [sizeSelected, setSizeSelected] = useState(null);
+  const [isCheckoutLoading, fetchCheckoutSession] = useCheckoutStripe();
+
+  const handleBuyProduct = async () => {
+    await fetchCheckoutSession({ product, selectedSize });
+  };
 
   return (
     <Container maxWidth="xl">
@@ -60,9 +68,9 @@ const ProductDetail = ({ product }) => {
                     <Button
                       variant="outlined"
                       fullWidth
-                      onClick={() => setSizeSelected(size)}
+                      onClick={() => setSelectedSize(size)}
                       disabled={!product?.sizes.includes(size)}
-                      className={clsx(classes.buttonSize, { active: size === sizeSelected })}>
+                      className={clsx(classes.buttonSize, { active: size === selectedSize })}>
                       {size}
                     </Button>
                   </Grid>
@@ -70,12 +78,18 @@ const ProductDetail = ({ product }) => {
               </Grid>
             </Grid>
 
-            <Button variant="contained" color="primary" fullWidth className={classes.buttonBuy}>
-              Comprar
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              disabled={!selectedSize}
+              className={classes.buttonBuy}
+              onClick={isCheckoutLoading ? null : handleBuyProduct}>
+              {isCheckoutLoading ? <CircularProgress color="secondary" size="1.5rem" /> : 'Comprar'}
             </Button>
 
             <Grid>
-              <Typography variant="subtitle1" component="h3">
+              <Typography variant="subtitle1" component="h3" className={classes.bold500}>
                 Descripción
               </Typography>
               <Typography variant="body2">{product?.description}</Typography>
