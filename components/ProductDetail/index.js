@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
 
 import { Grid, Container, Typography, Button, CircularProgress } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 import clsx from 'clsx';
 
 import { sizeList } from 'utils/product';
@@ -12,14 +13,27 @@ import { useStyles, ProductImages } from './styles';
 
 const ProductDetail = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState(null);
+  const [checkoutState, fetchCheckoutSession] = useCheckoutStripe();
 
   const theme = useTheme();
   const classes = useStyles(theme);
-  const [isCheckoutLoading, fetchCheckoutSession] = useCheckoutStripe();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleBuyProduct = async () => {
     await fetchCheckoutSession({ product, selectedSize });
   };
+
+  useEffect(() => {
+    if (checkoutState.error) {
+      enqueueSnackbar(
+        'Ocurrió un error y no es posible continuar con el pago, por favor intente más tarde.',
+        {
+          variant: 'error',
+          autoHideDuration: 7000,
+        },
+      );
+    }
+  }, [checkoutState]);
 
   return (
     <Container maxWidth="xl">
@@ -84,8 +98,12 @@ const ProductDetail = ({ product }) => {
               fullWidth
               disabled={!selectedSize}
               className={classes.buttonBuy}
-              onClick={isCheckoutLoading ? null : handleBuyProduct}>
-              {isCheckoutLoading ? <CircularProgress color="secondary" size="1.5rem" /> : 'Comprar'}
+              onClick={checkoutState.loading ? null : handleBuyProduct}>
+              {checkoutState.loading ? (
+                <CircularProgress color="secondary" size="1.5rem" />
+              ) : (
+                'Comprar'
+              )}
             </Button>
 
             <Grid>

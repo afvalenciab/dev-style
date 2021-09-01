@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { SnackbarProvider } from 'notistack';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import theme from 'theme';
@@ -26,10 +27,12 @@ function App({ Component, pageProps }) {
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <SnackbarProvider maxSnack={1}>
+          <CssBaseline />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SnackbarProvider>
       </ThemeProvider>
     </>
   );
