@@ -32,4 +32,10 @@ export const useStyles = makeStyles({
     marginTop: '1rem',
     borderRadius: '50px',
   },
+  spinner: {
+    margin: '100px 200px',
+    '@media (max-width: 600px)': {
+      margin: '4.5rem',
+    },
+  },
 });

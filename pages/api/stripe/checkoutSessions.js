@@ -1,11 +1,13 @@
 import Stripe from 'stripe';
+import { getById } from 'database/db';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      const { product, selectedSize } = req.body;
+      const { productId, selectedSize, currency } = req.body;
+      const product = getById(productId);
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -13,13 +15,13 @@ export default async function handler(req, res) {
         line_items: [
           {
             price_data: {
-              currency: 'mxn',
+              currency: currency.toLowerCase(),
               product_data: {
                 name: `${product.category} ${product.name}`,
                 description: `Talla ${selectedSize}`,
                 images: [`https://dev-style.vercel.app${product.image}`],
               },
-              unit_amount: product.price,
+              unit_amount_decimal: product.prices[currency] * 100,
             },
             adjustable_quantity: {
               enabled: true,
@@ -31,6 +33,7 @@ export default async function handler(req, res) {
         ],
         mode: 'payment',
         locale: 'es-419',
+        allow_promotion_codes: true,
         success_url: `${req.headers.origin}/?success=true&sessionId={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/product/${product.id}`,
       });

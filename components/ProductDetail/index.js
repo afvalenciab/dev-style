@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
 
 import { Grid, Container, Typography, Button, CircularProgress } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { useTheme } from '@material-ui/core/styles';
 import { useSnackbar } from 'notistack';
 import clsx from 'clsx';
 
-import { sizeList } from 'utils/product';
+import { sizeList, priceFormatter } from 'utils/product';
+import { OriginCountry } from 'utils/contexts';
 import useCheckoutStripe from 'hooks/useCheckoutStripe';
 import { useStyles, ProductImages } from './styles';
 
 const ProductDetail = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [checkoutState, fetchCheckoutSession] = useCheckoutStripe();
+  const { data: currency, loading: loadingCurrency } = useContext(OriginCountry);
 
   const theme = useTheme();
   const classes = useStyles(theme);
   const { enqueueSnackbar } = useSnackbar();
 
   const handleBuyProduct = async () => {
-    await fetchCheckoutSession({ product, selectedSize });
+    await fetchCheckoutSession({ productId: product.id, selectedSize, currency });
   };
 
   useEffect(() => {
@@ -60,14 +63,18 @@ const ProductDetail = ({ product }) => {
                 {product?.category}
               </Typography>
 
-              <Grid container justify="space-between" alignItems="baseline">
+              <Grid container justifyContent="space-between" alignItems="baseline">
                 <Typography component="h1" variant="h5" className={classes.bold500}>
                   {product?.name}
                 </Typography>
 
-                <Typography variant="body1" className={classes.bold500}>
-                  {`MXN $${product?.price}`}
-                </Typography>
+                {loadingCurrency || !currency ? (
+                  <Skeleton variant="text" width={100} />
+                ) : (
+                  <Typography variant="body1" className={classes.bold500}>
+                    {`${priceFormatter(product?.prices[currency])} ${currency}`}
+                  </Typography>
+                )}
               </Grid>
             </Grid>
 
@@ -76,7 +83,11 @@ const ProductDetail = ({ product }) => {
                 Selecciona tu talla
               </Typography>
 
-              <Grid container justify="space-between" wrap="nowrap" className={classes.sizeWrapper}>
+              <Grid
+                container
+                justifyContent="space-between"
+                wrap="nowrap"
+                className={classes.sizeWrapper}>
                 {sizeList.map(size => (
                   <Grid item key={size} className={classes.sizeItem}>
                     <Button

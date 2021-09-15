@@ -6,7 +6,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 const useCheckoutStripe = () => {
   const [checkoutState, setCheckoutState] = useState({ loading: false, error: null });
 
-  const fetchCheckoutSession = async ({ product, selectedSize }) => {
+  const fetchCheckoutSession = async ({ productId, selectedSize, currency }) => {
     setCheckoutState({ ...checkoutState, loading: true });
 
     try {
@@ -17,7 +17,7 @@ const useCheckoutStripe = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ product, selectedSize }),
+        body: JSON.stringify({ productId, selectedSize, currency }),
       });
 
       const data = await response.json();
