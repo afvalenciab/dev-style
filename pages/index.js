@@ -4,18 +4,21 @@ import { useRouter } from 'next/router';
 import { Container, Grid } from '@material-ui/core';
 
 import { getAll } from 'database/db';
+import useCheckoutRetrieve from 'hooks/useCheckoutRetrieve';
 import ProductList from 'components/ProductList';
 import PaymentDialog from 'components/PaymentDialog';
 
 const HomePage = ({ productList }) => {
   const [openPaymentDialog, setOpenPaymentDialog] = useState(false);
+  const [checkoutRetrieveState, fetchCheckoutRetrieve] = useCheckoutRetrieve();
+
   const router = useRouter();
   const { gender, success, sessionId } = router.query;
 
   useEffect(() => {
     if (success) {
       setOpenPaymentDialog(true);
-      console.log(sessionId);
+      fetchCheckoutRetrieve({ sessionId });
     }
   }, [success]);
 
@@ -39,7 +42,11 @@ const HomePage = ({ productList }) => {
       </Container>
 
       {openPaymentDialog && (
-        <PaymentDialog open={openPaymentDialog} onClose={handleClosePaymentDialog} />
+        <PaymentDialog
+          open={openPaymentDialog}
+          onClose={handleClosePaymentDialog}
+          checkoutRetrieveState={checkoutRetrieveState}
+        />
       )}
     </>
   );

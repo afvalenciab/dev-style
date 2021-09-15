@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <Container maxWidth="xl">
-        <Grid container justify="space-between" className={classes.root}>
+        <Grid container justifyContent="space-between" className={classes.root}>
           <Grid item className={classes.legalInfo}>
             <Typography variant="body1" color="secondary">
               LEGAL

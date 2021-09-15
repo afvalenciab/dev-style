@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Card, CardActionArea, CardMedia, CardContent, Typography } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { useTheme } from '@material-ui/core/styles';
 
+import { priceFormatter } from 'utils/product';
+import { OriginCountry } from 'utils/contexts';
 import { useStyles } from './styles';
 
 const ProductCard = ({ product }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const router = useRouter();
+  const { data: currency, loading: loadingCurrency } = useContext(OriginCountry);
 
   return (
     <Card raised>
@@ -29,7 +33,15 @@ const ProductCard = ({ product }) => {
           <Typography variant="caption" color="textSecondary" paragraph>
             {product.category}
           </Typography>
-          <Typography variant="subtitle2">{`$${product.price} MXN`}</Typography>
+
+          {loadingCurrency || !currency ? (
+            <Skeleton variant="text" width={100} />
+          ) : (
+            <Typography variant="subtitle2">{`${priceFormatter(
+              product.prices[currency],
+            )} ${currency}`}
+            </Typography>
+          )}
         </CardContent>
       </CardActionArea>
     </Card>

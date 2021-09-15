@@ -6,15 +6,20 @@ import { SnackbarProvider } from 'notistack';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import theme from 'theme';
-
+import useOriginCountry from 'hooks/useOriginCountry';
+import { OriginCountry } from 'utils/contexts';
 import Layout from 'components/Layout';
 
 function App({ Component, pageProps }) {
+  const [originCountryState, fetchOriginCountry] = useOriginCountry();
+
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
+
+    if (!originCountryState.data) fetchOriginCountry();
   }, []);
 
   return (
@@ -28,10 +33,12 @@ function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <SnackbarProvider maxSnack={1}>
-          <CssBaseline />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <OriginCountry.Provider value={originCountryState}>
+            <CssBaseline />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </OriginCountry.Provider>
         </SnackbarProvider>
       </ThemeProvider>
     </>
