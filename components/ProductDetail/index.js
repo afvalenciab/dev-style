@@ -1,17 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
-import { Grid, Container, Typography, Button } from '@material-ui/core';
+
+import { Grid, Container, Typography, Button, CircularProgress } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { useTheme } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 import clsx from 'clsx';
 
-import { sizeList } from 'utils/product';
+import { sizeList, priceFormatter } from 'utils/product';
+import { OriginCountry } from 'utils/contexts';
+import useCheckoutStripe from 'hooks/useCheckoutStripe';
 import { useStyles, ProductImages } from './styles';
 
 const ProductDetail = ({ product }) => {
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [checkoutState, fetchCheckoutSession] = useCheckoutStripe();
+  const { data: currency, loading: loadingCurrency } = useContext(OriginCountry);
+
   const theme = useTheme();
   const classes = useStyles(theme);
-  const [sizeSelected, setSizeSelected] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleBuyProduct = async () => {
+    await fetchCheckoutSession({ productId: product.id, selectedSize, currency });
+  };
+
+  useEffect(() => {
+    if (checkoutState.error) {
+      enqueueSnackbar(
+        'Ocurrió un error y no es posible continuar con el pago, por favor intente más tarde.',
+        {
+          variant: 'error',
+          autoHideDuration: 7000,
+        },
+      );
+    }
+  }, [checkoutState]);
 
   return (
     <Container maxWidth="xl">
@@ -38,14 +63,18 @@ const ProductDetail = ({ product }) => {
                 {product?.category}
               </Typography>
 
-              <Grid container justify="space-between" alignItems="baseline">
+              <Grid container justifyContent="space-between" alignItems="baseline">
                 <Typography component="h1" variant="h5" className={classes.bold500}>
                   {product?.name}
                 </Typography>
 
-                <Typography variant="body1" className={classes.bold500}>
-                  {`MXN $${product?.price}`}
-                </Typography>
+                {loadingCurrency || !currency ? (
+                  <Skeleton variant="text" width={100} />
+                ) : (
+                  <Typography variant="body1" className={classes.bold500}>
+                    {`${priceFormatter(product?.prices[currency])} ${currency}`}
+                  </Typography>
+                )}
               </Grid>
             </Grid>
 
@@ -54,15 +83,19 @@ const ProductDetail = ({ product }) => {
                 Selecciona tu talla
               </Typography>
 
-              <Grid container justify="space-between" wrap="nowrap" className={classes.sizeWrapper}>
+              <Grid
+                container
+                justifyContent="space-between"
+                wrap="nowrap"
+                className={classes.sizeWrapper}>
                 {sizeList.map(size => (
                   <Grid item key={size} className={classes.sizeItem}>
                     <Button
                       variant="outlined"
                       fullWidth
-                      onClick={() => setSizeSelected(size)}
+                      onClick={() => setSelectedSize(size)}
                       disabled={!product?.sizes.includes(size)}
-                      className={clsx(classes.buttonSize, { active: size === sizeSelected })}>
+                      className={clsx(classes.buttonSize, { active: size === selectedSize })}>
                       {size}
                     </Button>
                   </Grid>
@@ -70,12 +103,22 @@ const ProductDetail = ({ product }) => {
               </Grid>
             </Grid>
 
-            <Button variant="contained" color="primary" fullWidth className={classes.buttonBuy}>
-              Comprar
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              disabled={!selectedSize}
+              className={classes.buttonBuy}
+              onClick={checkoutState.loading ? null : handleBuyProduct}>
+              {checkoutState.loading ? (
+                <CircularProgress color="secondary" size="1.5rem" />
+              ) : (
+                'Comprar'
+              )}
             </Button>
 
             <Grid>
-              <Typography variant="subtitle1" component="h3">
+              <Typography variant="subtitle1" component="h3" className={classes.bold500}>
                 Descripción
               </Typography>
               <Typography variant="body2">{product?.description}</Typography>

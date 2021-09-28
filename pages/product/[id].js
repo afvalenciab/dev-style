@@ -8,18 +8,18 @@ const ProductPage = ({ product }) => {
   return <ProductDetail product={product} />;
 };
 
-export const getStaticProps = async ({ params: { id } }) => {
+export function getStaticProps({ params: { id } }) {
   const product = getById(id);
 
   return { props: { product } };
-};
+}
 
-export const getStaticPaths = async () => {
+export function getStaticPaths() {
   const { items } = getAll();
 
   const paths = items.map(item => ({ params: { id: item.id } }));
   return { paths, fallback: false };
-};
+}
 
 ProductPage.propTypes = {
   product: PropTypes.object,

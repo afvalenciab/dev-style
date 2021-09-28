@@ -5,7 +5,11 @@
       "category": "Camiseta hombre",
       "gender": "M",
       "name": "ReactJS",
-      "price": "300",
+      "prices": {
+        "MXN": "300.00",
+        "COP": "50000.00",
+        "USD": "15.00"
+      },
       "sizes": ["S", "M", "L", "XL"],
       "image": "/images/ShirtReact.jpg",
       "imageList": [
@@ -21,7 +25,11 @@
       "category": "Camiseta hombre",
       "gender": "M",
       "name": "Angular",
-      "price": "300",
+      "prices": {
+        "MXN": "300.00",
+        "COP": "50000.00",
+        "USD": "15.00"
+      },
       "sizes": ["S", "M", "L", "XL"],
       "image": "/images/ShirtAngular.jpg",
       "imageList": [
@@ -37,7 +45,11 @@
       "category": "Camiseta hombre",
       "gender": "M",
       "name": "Javascript",
-      "price": "300",
+      "prices": {
+        "MXN": "300.00",
+        "COP": "50000.00",
+        "USD": "15.00"
+      },
       "sizes": ["S", "M", "L", "XL"],
       "image": "/images/ShirtJS.jpg",
       "imageList": [
@@ -53,7 +65,11 @@
       "category": "Camiseta mujer",
       "gender": "W",
       "name": "HTML",
-      "price": "300",
+      "prices": {
+        "MXN": "300.00",
+        "COP": "50000.00",
+        "USD": "15.00"
+      },
       "sizes": ["S", "M", "L"],
       "image": "/images/ShirtHtmlWoman.jpg",
       "imageList": [
@@ -69,7 +85,11 @@
       "category": "Camiseta mujer",
       "gender": "W",
       "name": "Javascript",
-      "price": "300",
+      "prices": {
+        "MXN": "300.00",
+        "COP": "50000.00",
+        "USD": "15.00"
+      },
       "sizes": ["S", "M", "L"],
       "image": "/images/ShirtJSWoman.jpg",
       "imageList": [

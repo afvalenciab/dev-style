@@ -18,6 +18,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/forbid-prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/jsx-one-expression-per-line': 'off',
     'arrow-parens': 'off',
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'off',
