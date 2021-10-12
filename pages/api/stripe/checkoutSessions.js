@@ -1,9 +1,11 @@
+import { withSentry } from '@sentry/nextjs';
+import * as Sentry from '@sentry/nextjs';
 import Stripe from 'stripe';
 import { getById } from 'database/db';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const { productId, selectedSize, currency } = req.body;
@@ -40,6 +42,7 @@ export default async function handler(req, res) {
 
       res.status(200).json(session);
     } catch (err) {
+      Sentry.captureException(err);
       res.status(500).json({ statusCode: 500, message: err.message });
     }
   } else {
@@ -47,3 +50,5 @@ export default async function handler(req, res) {
     res.status.end('Method Not Allowed');
   }
 }
+
+export default withSentry(handler);
