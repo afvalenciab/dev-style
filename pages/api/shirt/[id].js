@@ -1,9 +1,15 @@
+import { withSentry } from '@sentry/nextjs';
+import * as Sentry from '@sentry/nextjs';
 import { getById } from 'database/db';
 
 const handler = (req, res) => {
-  const { id } = req.query;
+  try {
+    const { id } = req.query;
 
-  res.status(200).json({ item: getById(id), message: 'Shirt retrieved' });
+    res.status(200).json({ item: getById(id), message: 'Shirt retrieved' });
+  } catch (error) {
+    Sentry.captureException(error);
+  }
 };
 
-export default handler;
+export default withSentry(handler);

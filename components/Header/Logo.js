@@ -15,10 +15,10 @@ const LogoStyled = styled('a')({
   color: 'inherit',
 });
 
-const Logo = () => {
+const Logo = ({ ...props }) => {
   return (
     <Link href="/" passHref>
-      <LogoStyled>{'<DEV-STYLE />'}</LogoStyled>
+      <LogoStyled {...props}>{'<DEV-STYLE />'}</LogoStyled>
     </Link>
   );
 };
