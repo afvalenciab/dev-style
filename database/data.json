@@ -1,6 +1,26 @@
 {
   "items": [
     {
+      "id": "e894bbfb-44eb-4b5c-be1a-79178e5a4011",
+      "category": "Camiseta mujer",
+      "gender": "W",
+      "name": "Parrot",
+      "prices": {
+        "MXN": "300.00",
+        "COP": "50000.00",
+        "USD": "15.00"
+      },
+      "sizes": ["S", "M", "L", "XL"],
+      "image": "/images/ParrotShirt.png",
+      "imageList": [
+        "/images/ParrotShirt.png",
+        "/images/ParrotShirt.png",
+        "/images/ParrotShirt.png",
+        "/images/ParrotShirt.png"
+      ],
+      "description": "Camiseta manga corta, cuello redondo, producto 100% algodon, peso ligero, textura suave, colores solidos."
+    },
+    {
       "id": "e894bbfb-44eb-4b5c-be1a-79178e5a40ee",
       "category": "Camiseta hombre",
       "gender": "M",
